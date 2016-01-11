@@ -2,7 +2,7 @@ function hideCelebs(e) {
   console.log(e);
   var posts = document.querySelectorAll('#contentArea');
     for(var i = 0; i < posts.length; i++) {
-      var givenPost = posts[i].querySelector('.name');
+      var givenPost = posts[i].querySelector('div .userContent');
       var regex = new RegExp( e, 'g' );
         if ( givenPost.innerHTML.match(regex) ) {
           givenPost.parentNode.parentNode.parentNode.parentNode.style.display="none";
