@@ -1,31 +1,14 @@
-function loadEvents(e) {
-var intervalFunc = setInterval(function() {
-    var btn = document.querySelector('.load-more');
-    if(btn) {
-      btn.click();
-      console.log("new page rendered");
-    }
-    else {
-    	clearInterval(intervalFunc);
-      
-      chrome.runtime.sendMessage({
-       text:    'EVENTS_LOADED'
-      });
-    }
-  }, 500);  
-}
-
-function hideViewsAndClicks(e) {
+function hideCelebs(e) {
   console.log(e);
-  var events = document.querySelectorAll('.events li');
-    for(var i = 0; i < events.length; i++) {
-      var given_event = events[i].querySelector('.name');
+  var posts = document.querySelectorAll('#contentArea');
+    for(var i = 0; i < posts.length; i++) {
+      var givenPost = posts[i].querySelector('.name');
       var regex = new RegExp( e, 'g' );
-        if ( given_event.innerHTML.match(regex) ) {
-          
+        if ( givenPost.innerHTML.match(regex) ) {
+          givenPost.parentNode.parentNode.parentNode.parentNode.style.display="none";
         }
         else {
-          given_event.parentNode.parentNode.style.display="none";
+          
         }
   }
 }
@@ -34,10 +17,10 @@ function hideViewsAndClicks(e) {
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
   if (msg.text == "BUTTON_CLICKED") {
-    loadEvents();
+    loadposts();
    }
    else if(msg.text == "FILTER_BUTTON_CLICKED") {
-    hideViewsAndClicks(msg.filter);
+    hideCelebs(msg.filter);
            
   }
 });
